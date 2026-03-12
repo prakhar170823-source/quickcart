@@ -49,7 +49,7 @@ public class ProductService {
 
     public void softDelete(Long id) {
         productRepository.findById(id).ifPresent(p -> {
-            p.setDeleted(true); // Fulfills the soft delete requirement!
+            p.setDeleted(true);
             productRepository.save(p);
         });
     }

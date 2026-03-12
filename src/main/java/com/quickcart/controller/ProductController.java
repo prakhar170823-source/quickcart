@@ -2,6 +2,7 @@ package com.quickcart.controller;
 
 import com.quickcart.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 @Tag(name = "Product Catalog", description = "CRUD operations for products")
+@SecurityRequirement(name = "BearerAuth")
 public class ProductController {
 
     private final ProductService productService;
@@ -48,6 +50,7 @@ public class ProductController {
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+
     @Operation(summary = "Soft delete a product", description = "Flags a product as deleted without removing it from the database.")
     public void delete(@PathVariable Long id) {
         productService.softDelete(id);
