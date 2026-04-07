@@ -11,6 +11,7 @@ import com.quickcart.dto.UserDTOs.*;
 @RestController
 @RequestMapping("/api/users")
 @Tag(name = "User Management", description = "APIs for user registration and authentication")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;

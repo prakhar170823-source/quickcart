@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuickCart Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 50px; max-width: 400px; margin: auto; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+        #message { font-weight: bold; margin-top: 15px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+<h2>Register for QuickCart</h2>
+
+<label for="name"></label><input type="text" id="name" placeholder="Full Name" required>
+<label for="email"></label><input type="email" id="email" placeholder="Email Address" required>
+<label for="password"></label><input type="password" id="password" placeholder="Password" required>
+
+<button id="registerButton" onclick="registerUser()">Create Account</button>
+
+<div id="message"></div>
+
+<script>
+    async function registerUser() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const messageDiv = document.getElementById('message');
+
+        try {
+            const response = await fetch('http://localhost:8080/api/users/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            });
+
+            if (response.status === 201) {
+                messageDiv.innerHTML = "Registration Successful!";
+                messageDiv.className = "success";
+            } else {
+                messageDiv.innerHTML = "Registration Failed. Please try again.";
+                messageDiv.className = "error";
+            }
+        } catch (error) {
+            messageDiv.innerHTML = "Server is offline.";
+            messageDiv.className = "error";
+        }
+    }
+</script>
+</body>
+</html>
